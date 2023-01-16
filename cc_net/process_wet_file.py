@@ -22,6 +22,11 @@ from cc_net import jsonql
 
 WET_URL_ROOT = "http://data.commoncrawl.org" #"https://commoncrawl.s3.amazonaws.com"
 
+from datasets import load_dataset
+abs_data = load_dataset("aquamuse", "abstractive")
+target_urls = dict()
+for a in abs_data['train']:
+    target_urls[a['input_urls']] = 1
 
 logger = logging.getLogger(__name__)
 
@@ -74,6 +79,10 @@ def parse_doc(headers: List[str], doc: List[str]) -> Optional[dict]:
         if warc_type != "conversion":
             return None
         url = headers[2].split()[1]
+        # 필요없는 문서임
+        if url not in target_urls:
+            return None
+        logger.info("Matching!!")
         date = headers[3].split()[1]
         digest = headers[6].split()[1]
         length = int(headers[8].split()[1])
