@@ -26,7 +26,8 @@ from datasets import load_dataset
 abs_data = load_dataset("aquamuse", "abstractive")
 target_urls = dict()
 for a in abs_data['train']:
-    target_urls[a['input_urls']] = 1
+    for u in a['input_urls']:
+        target_urls[u] = 1
 
 logger = logging.getLogger(__name__)
 
