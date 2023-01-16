@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup  # type: ignore
 
 from cc_net import jsonql
 
-WET_URL_ROOT = "https://commoncrawl.s3.amazonaws.com"
+WET_URL_ROOT = "http://data.commoncrawl.org" #"https://commoncrawl.s3.amazonaws.com"
 
 
 logger = logging.getLogger(__name__)
